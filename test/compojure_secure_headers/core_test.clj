@@ -2,6 +2,8 @@
   (:use clojure.test
         compojure-secure-headers.core))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest wrap-hsts-header-test
+  (testing "response without hsts header"
+    (let [handler (wrap-hsts-header (constantly {}))]
+      (is (= (handler {}) {:headers {"Strict-Transport-Security" "max-age=31536000;"}})))))
+
