@@ -1,4 +1,4 @@
-(ns compojure-secure-headers.hsts-test
+(ns ring-secure-headers.hsts-test
   (:use clojure.test
         compojure-secure-headers.hsts))
 

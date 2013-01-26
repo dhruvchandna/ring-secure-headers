@@ -1,4 +1,4 @@
-(ns compojure-secure-headers.hsts
+(ns ring-secure-headers.hsts
   (:use ring.util.response))
 
 (defn- create-hsts-header
