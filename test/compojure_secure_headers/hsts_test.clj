@@ -1,6 +1,6 @@
-(ns compojure-secure-headers.core-test
+(ns compojure-secure-headers.hsts-test
   (:use clojure.test
-        compojure-secure-headers.core))
+        compojure-secure-headers.hsts))
 
 (deftest wrap-hsts-header-test
   (testing "response without hsts header"
