@@ -1,6 +1,6 @@
 (ns ring-secure-headers.hsts-test
   (:use clojure.test
-        compojure-secure-headers.hsts))
+        ring-secure-headers.hsts))
 
 (deftest wrap-hsts-header-test
   (testing "response without hsts header"
