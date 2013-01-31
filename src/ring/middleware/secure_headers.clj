@@ -1,4 +1,4 @@
-(ns ring-secure-headers.hsts
+(ns ring.middleware.secure-headers
   (:use ring.util.response))
 
 (defn- create-hsts-header
@@ -21,3 +21,9 @@
                 (create-hsts-header (opts :max-age) (opts :include-subdomains))))))))
 
 
+
+(defn wrap-secure-headers
+  "Composition of different security headers chained together"
+  [handler & [options]]
+  (-> handler
+   (wrap-hsts-header)))

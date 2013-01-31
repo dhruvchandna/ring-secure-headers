@@ -1,6 +1,6 @@
-(ns ring-secure-headers.hsts-test
+(ns ring.middleware.secure-headers-test
   (:use clojure.test
-        ring-secure-headers.hsts))
+        ring.middleware.secure-headers))
 
 (deftest wrap-hsts-header-test
   (testing "response without hsts header"
@@ -33,3 +33,8 @@
     (let [handler (wrap-hsts-header (constantly nil))]
       (is (nil? (handler {}))))))
 
+
+(deftest wrap-secure-headers-test
+  (testing "response with all default security headers"
+    (let [handler (wrap-secure-headers (constantly {}))]
+      (is (= (handler {}) {:headers {"Strict-Transport-Security" "max-age=31536000;"}})))))
