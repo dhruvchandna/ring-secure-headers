@@ -1,6 +1,10 @@
 (ns ring.middleware.secure-headers
   (:use ring.util.response))
 
+(def SECURE_HEADERS
+  {:hsts "Strict-Transport-Security"
+   :frame-option-header "X-Frame-Options"})
+
 (defn- create-hsts-header
   [& [max-age include-subdomains]]
   (str
@@ -19,9 +23,9 @@
   (let [opts (if options options {:max-age 31536000 :include-subdomains false})]
    (fn [req]
     (if-let [resp (handler req)]
-      (if (get-in resp [:headers "Strict-Transport-Security"])
+      (if (get-in resp [:headers (:hsts SECURE_HEADERS)])
         resp
-        (header resp "Strict-Transport-Security"
+        (header resp (:hsts SECURE_HEADERS)
                 (create-hsts-header (opts :max-age) (opts :include-subdomains))))))))
 
 (defn wrap-x-frame-options-header
@@ -30,9 +34,9 @@
   (let [option (if options options "SAMEORIGIN")]
     (fn [req]
       (if-let [resp (handler req)]
-        (if (get-in resp [:headers "X-FRAME-OPTIONS"])
+        (if (get-in resp [:headers (:frame-option-header SECURE_HEADERS)])
           resp
-          (header resp "X-FRAME-OPTIONS" (create-x-frame-options-header option)))))))
+          (header resp (:frame-option-header SECURE_HEADERS) (create-x-frame-options-header option)))))))
 
 (defn wrap-secure-headers
   "Composition of different security headers chained together"
