@@ -44,11 +44,11 @@
       (is (= (handler {}) {:headers {"X-FRAME-OPTIONS" "DENY"}}))))
   
   (testing "response with x-frame-option set to DENY"
-    (let [handler (wrap-x-frame-options-header (constantly {}) {:frame-option "DENY"})]
+    (let [handler (wrap-x-frame-options-header (constantly {}) {:type "DENY"})]
       (is (= (handler {}) {:headers {"X-FRAME-OPTIONS" "DENY"}}))))
 
   (testing "response with x-frame-option set to ALLOW"
-    (let [handler (wrap-x-frame-options-header (constantly {}) {:frame-option {:allow-from  "example.com"}})]
+    (let [handler (wrap-x-frame-options-header (constantly {}) {:type {:allow-from  "example.com"}})]
       (is (= (handler {}) {:headers {"X-FRAME-OPTIONS" "ALLOW-FROM:example.com"}})))))
 
 

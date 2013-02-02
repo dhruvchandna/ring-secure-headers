@@ -27,7 +27,7 @@
 (defn wrap-x-frame-options-header
   ""
   [handler & [options]]
-  (let [option (if options (options :frame-option) "SAMEORIGIN")]
+  (let [option (if options (options :type) "SAMEORIGIN")]
     (fn [req]
       (if-let [resp (handler req)]
         (if (get-in resp [:headers "X-FRAME-OPTIONS"])
