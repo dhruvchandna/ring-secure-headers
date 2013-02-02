@@ -27,7 +27,7 @@
 (defn wrap-x-frame-options-header
   ""
   [handler & [options]]
-  (let [option (if options (options :type) "SAMEORIGIN")]
+  (let [option (if options options "SAMEORIGIN")]
     (fn [req]
       (if-let [resp (handler req)]
         (if (get-in resp [:headers "X-FRAME-OPTIONS"])
@@ -38,4 +38,5 @@
   "Composition of different security headers chained together"
   [handler & [options]]
   (-> handler
-   (wrap-hsts-header (:hsts options))))
+      (wrap-hsts-header (:hsts options))
+      (wrap-x-frame-options-header (:frame-option options))))
