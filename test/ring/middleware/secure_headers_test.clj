@@ -37,4 +37,8 @@
 (deftest wrap-secure-headers-test
   (testing "response with all default security headers"
     (let [handler (wrap-secure-headers (constantly {}))]
-      (is (= (handler {}) {:headers {"Strict-Transport-Security" "max-age=31536000;"}})))))
+      (is (= (handler {}) {:headers {"Strict-Transport-Security" "max-age=31536000;"}}))))
+  
+  (testing "response with overiding configuration"
+    (let [handler (wrap-secure-headers (constantly {}) {:hsts {:max-age 1000 :include-subdomains true}})]
+      (is (= (handler {}) {:headers {"Strict-Transport-Security" "max-age=1000;includeSubDomains"}})))))

@@ -26,4 +26,4 @@
   "Composition of different security headers chained together"
   [handler & [options]]
   (-> handler
-   (wrap-hsts-header)))
+   (wrap-hsts-header (:hsts options))))
