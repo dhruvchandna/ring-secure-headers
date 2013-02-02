@@ -8,6 +8,10 @@
    (if max-age max-age "31536000") ";"
    (if include-subdomains "includeSubDomains")))
 
+(defn- create-x-frame-options-header
+  [opt]
+  (if (map? opt) (str "ALLOW-FROM:" (opt :allow-from)) opt))
+
 (defn wrap-hsts-header
   "Add the 'Strict-Transport-Security' header
    response."
@@ -20,7 +24,15 @@
         (header resp "Strict-Transport-Security"
                 (create-hsts-header (opts :max-age) (opts :include-subdomains))))))))
 
-
+(defn wrap-x-frame-options-header
+  ""
+  [handler & [options]]
+  (let [option (if options (options :frame-option) "SAMEORIGIN")]
+    (fn [req]
+      (if-let [resp (handler req)]
+        (if (get-in resp [:headers "X-FRAME-OPTIONS"])
+          resp
+          (header resp "X-FRAME-OPTIONS" (create-x-frame-options-header option)))))))
 
 (defn wrap-secure-headers
   "Composition of different security headers chained together"

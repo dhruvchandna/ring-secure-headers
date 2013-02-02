@@ -34,6 +34,24 @@
       (is (nil? (handler {}))))))
 
 
+(deftest wrap-x-frame-options-header-test
+  (testing "response with default x-frame-option"
+    (let [handler (wrap-x-frame-options-header (constantly {}))]
+      (is (= (handler {}) {:headers {"X-FRAME-OPTIONS" "SAMEORIGIN"}}))))
+
+  (testing "response with x-frame-option already set"
+    (let [handler (wrap-x-frame-options-header (constantly {:headers {"X-FRAME-OPTIONS" "DENY"}}))]
+      (is (= (handler {}) {:headers {"X-FRAME-OPTIONS" "DENY"}}))))
+  
+  (testing "response with x-frame-option set to DENY"
+    (let [handler (wrap-x-frame-options-header (constantly {}) {:frame-option "DENY"})]
+      (is (= (handler {}) {:headers {"X-FRAME-OPTIONS" "DENY"}}))))
+
+  (testing "response with x-frame-option set to ALLOW"
+    (let [handler (wrap-x-frame-options-header (constantly {}) {:frame-option {:allow-from  "example.com"}})]
+      (is (= (handler {}) {:headers {"X-FRAME-OPTIONS" "ALLOW-FROM:example.com"}})))))
+
+
 (deftest wrap-secure-headers-test
   (testing "response with all default security headers"
     (let [handler (wrap-secure-headers (constantly {}))]
