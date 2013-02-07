@@ -1,6 +1,6 @@
-# compojure-secure-headers
+# ring-secure-headers
 
-A Clojure library designed to add Secure Header information to HTTP headers.
+Ring middleware to add secure headers to HTTP response.
 
 ## Usage
 
