@@ -7,4 +7,4 @@ Ring middleware to add secure headers to HTTP response.
 
 ## License
 
-Distributed under the Eclipse Public License, the same as Clojure.
+Distributed under MIT license [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
