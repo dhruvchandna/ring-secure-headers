@@ -6,5 +6,5 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [ring/ring-core "1.2.2"]
                  [ring/ring-jetty-adapter "1.2.2"]
-                 [dhruv/ring-secure-headers "0.1.0"]])
+                 [dhruv/ring-secure-headers "0.2.0"]])
 
