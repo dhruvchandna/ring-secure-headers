@@ -3,7 +3,8 @@
 
 (def SECURE_HEADERS
   {:hsts "Strict-Transport-Security"
-   :frame-option-header "X-Frame-Options"})
+   :frame-option-header "X-Frame-Options"
+   :content-type-header "X-Content-Type-Options"})
 
 (defn- create-hsts-header
   [& [max-age include-subdomains]]
@@ -38,9 +39,20 @@
           resp
           (header resp (:frame-option-header SECURE_HEADERS) (create-x-frame-options-header option)))))))
 
+(defn wrap-x-content-type-options-header
+  ""
+  [handler]
+  (let [option "nosniff"]
+    (fn [req]
+      (if-let [resp (handler req)]
+        (if (get-in resp [:headers (:content-type-header SECURE_HEADERS)])
+          resp
+          (header resp (:content-type-header SECURE_HEADERS) option))))))
+
 (defn wrap-secure-headers
   "Composition of different security headers chained together"
   [handler & [options]]
   (-> handler
       (wrap-hsts-header (:hsts options))
-      (wrap-x-frame-options-header (:frame-option options))))
+      (wrap-x-frame-options-header (:frame-option options))
+      (wrap-x-content-type-options-header)))
