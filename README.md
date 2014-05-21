@@ -8,7 +8,17 @@ To include the library in your project include the following to your `:dependenc
 	`[dhruv/ring-secure-headers "0.2.0"]`
     
 ## Usage
-Check out the `examples` project to see the library in action.
+### Include all headers with default values
+	`(ns simple-ring-server.core
+     (:use ring.middleware.secure-headers))
+
+	(defn handler [request]
+  		{:status 200
+   		:headers {"Content-Type" "text/html"}
+   		:body "Hello World"})
+
+	(def app
+    	(-> handler wrap-secure-headers))`
 
 ## License
 
