@@ -9,18 +9,16 @@ To include the library in your project include the following to your `:dependenc
     
 ## Usage
 ### Include all headers with default values
-{% highlight clojure %}
 	(ns simple-ring-server.core
-     (:use ring.middleware.secure-headers))
-
-	(defn handler [request]
+  	  (:use ring.middleware.secure-headers))
+    
+    (defn handler [request]
   		{:status 200
    		:headers {"Content-Type" "text/html"}
    		:body "Hello World"})
 
 	(def app
     	(-> handler wrap-secure-headers))
-{% endhighlight %}
 ## License
 
 Distributed under MIT license [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
