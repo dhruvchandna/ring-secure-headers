@@ -19,6 +19,15 @@ To include the library in your project include the following to your `:dependenc
 
 	(def app
     	(-> handler wrap-secure-headers))
+        
+## Default Values of Headers
+### X-Frame-Options
+SAMEORIGIN
+### X-Content-Type-Options
+nosniff
+### Strict-Transport-Security
+max-age=31536000
+
 ## License
 
 Distributed under MIT license [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
