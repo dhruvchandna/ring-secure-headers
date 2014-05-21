@@ -9,7 +9,7 @@ To include the library in your project include the following to your `:dependenc
     
 ## Usage
 ### Include all headers with default values
-	`(ns simple-ring-server.core
+	(ns simple-ring-server.core
      (:use ring.middleware.secure-headers))
 
 	(defn handler [request]
@@ -18,7 +18,7 @@ To include the library in your project include the following to your `:dependenc
    		:body "Hello World"})
 
 	(def app
-    	(-> handler wrap-secure-headers))`
+    	(-> handler wrap-secure-headers))
 
 ## License
 
