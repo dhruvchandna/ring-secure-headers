@@ -9,6 +9,7 @@ To include the library in your project include the following to your `:dependenc
     
 ## Usage
 ### Include all headers with default values
+{% highlight clojure %}
 	(ns simple-ring-server.core
      (:use ring.middleware.secure-headers))
 
@@ -19,7 +20,7 @@ To include the library in your project include the following to your `:dependenc
 
 	(def app
     	(-> handler wrap-secure-headers))
-
+{% endhighlight %}
 ## License
 
 Distributed under MIT license [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT)
