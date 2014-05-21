@@ -21,11 +21,11 @@ To include the library in your project include the following to your `:dependenc
     	(-> handler wrap-secure-headers))
         
 ## Default Values of Headers
-### X-Frame-Options
+#### X-Frame-Options
 SAMEORIGIN
-### X-Content-Type-Options
+#### X-Content-Type-Options
 nosniff
-### Strict-Transport-Security
+#### Strict-Transport-Security
 max-age=31536000
 
 ## License
