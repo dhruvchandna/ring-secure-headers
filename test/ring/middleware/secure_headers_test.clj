@@ -57,18 +57,28 @@
     (let [handler (wrap-x-content-type-options-header (constantly {}))]
       (is (= (handler {}) {:headers {"X-Content-Type-Options" "nosniff"}})))))
 
+(deftest wrap-x-xss-protection-header-test
+  (testing "response with default X-XSS-Protection header"
+    (let [handler (wrap-x-xss-protection-header (constantly {}))]
+      (is (= (handler {}) {:headers {"X-XSS-Protection" "1; mode=block"}}))))
+  (testing "response with custome value"
+    (let [handler (wrap-x-xss-protection-header (constantly {}) {:value 0})]
+      (is (= (handler {}) {:headers {"X-XSS-Protection" "0"}})))))
 
 (deftest wrap-secure-headers-test
   (testing "response with all default security headers"
     (let [handler (wrap-secure-headers (constantly {}))]
       (is (= (handler {}) {:headers {"Strict-Transport-Security" "max-age=31536000;"
                                      "X-Frame-Options" "SAMEORIGIN"
-                                     "X-Content-Type-Options" "nosniff"}}))))
+                                     "X-Content-Type-Options" "nosniff"
+                                     "X-XSS-Protection" "1; mode=block"}}))))
   
   (testing "response with overiding configuration"
     (let [handler (wrap-secure-headers (constantly {})
                                        {:hsts {:max-age 1000 :include-subdomains true}
-                                        :frame-option "DENY"})]
+                                        :frame-option "DENY"
+                                        :xss {:value 0}})]
       (is (= (handler {}) {:headers {"Strict-Transport-Security" "max-age=1000;includeSubDomains"
                                      "X-Frame-Options" "DENY"
-                                     "X-Content-Type-Options" "nosniff"}})))))
+                                     "X-Content-Type-Options" "nosniff"
+                                     "X-XSS-Protection" "0"}})))))
