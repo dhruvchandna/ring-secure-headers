@@ -27,6 +27,8 @@ SAMEORIGIN
 nosniff
 #### Strict-Transport-Security
 max-age=31536000
+#### X-XSS-Protection
+1; mode=block
 
 ## License
 
