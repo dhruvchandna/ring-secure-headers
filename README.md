@@ -5,7 +5,7 @@ Ring middleware to add secure headers to HTTP response. Inspired by [Twitter sec
 
 ## Installation
 To include the library in your project include the following to your `:dependencies`:
-	`[dhruv/ring-secure-headers "0.2.0"]`
+	`[dhruv/ring-secure-headers "0.3.0"]`
     
 ## Usage
 ### Include all headers with default values
